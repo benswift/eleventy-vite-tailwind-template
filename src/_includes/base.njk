@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ description or site.description }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{% block ogType %}website{% endblock %}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:title" content="{% block ogTitle %}{{ title or site.name }}{% endblock %}">
+  <meta property="og:description" content="{{ description or site.description }}">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
+  <meta name="twitter:title" content="{% block twitterTitle %}{{ title or site.name }}{% endblock %}">
+  <meta name="twitter:description" content="{{ description or site.description }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="theme-color" content="#3b82f6">
+
+  <title>{% block pageTitle %}{{ title or site.name }}{% endblock %}</title>
+  <link rel="stylesheet" href="/assets/main.css">
+</head>
+<body class="min-h-screen bg-neutral-900 text-neutral-100 print:bg-white print:text-neutral-900 flex flex-col">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="border-b border-primary-500 print:hidden">
+    <nav class="max-w-prose mx-auto px-4" aria-label="Main navigation">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="text-lg font-semibold text-neutral-100 hover:text-primary-400 transition-colors" aria-label="{{ site.name }} home">
+          Home
+        </a>
+
+        {# Desktop navigation #}
+        {% set navPages = collections.all | eleventyNavigation %}
+        <ul class="hidden sm:flex gap-6 sm:gap-8">
+          {% for entry in navPages %}
+          <li class="relative{% if entry.children.length %} group{% endif %}">
+            <a href="{{ entry.url }}" class="text-neutral-100 hover:text-primary-300 transition-colors{% if page.url | startswith(entry.url) %} font-semibold{% endif %}"{% if page.url | startswith(entry.url) %} aria-current="page"{% endif %}{% if entry.children.length %} aria-haspopup="true"{% endif %}>
+              {{ entry.title }}{% if entry.children.length %}<span class="ml-1 text-xs" aria-hidden="true">▾</span>{% endif %}
+            </a>
+            {% if entry.children.length %}
+            <ul class="absolute left-0 top-full mt-1 py-2 bg-neutral-900 border border-primary-500/40 rounded min-w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all z-50">
+              {% for child in entry.children %}
+              <li>
+                <a href="{{ child.url }}" class="block px-4 py-2 text-neutral-100 hover:text-primary-300 hover:bg-primary-500/10 transition-colors{% if page.url == child.url %} font-semibold{% endif %}"{% if page.url == child.url %} aria-current="page"{% endif %}>
+                  {{ child.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+
+        {# Mobile menu button #}
+        <button
+          type="button"
+          class="sm:hidden p-2 text-neutral-100 hover:text-primary-400 transition-colors"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+          data-menu-toggle
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <path class="menu-icon-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      {# Mobile navigation #}
+      <div id="mobile-menu" class="hidden sm:hidden pb-4" aria-label="Mobile navigation">
+        <ul class="flex flex-col gap-1">
+          {% for entry in navPages %}
+          <li>
+            <a href="{{ entry.url }}" class="block py-2 text-neutral-100 hover:text-primary-300 transition-colors{% if page.url | startswith(entry.url) %} font-semibold{% endif %}"{% if page.url | startswith(entry.url) %} aria-current="page"{% endif %}>
+              {{ entry.title }}
+            </a>
+            {% if entry.children.length %}
+            <ul class="pl-4 flex flex-col gap-1 border-l border-primary-500/30 ml-2">
+              {% for child in entry.children %}
+              <li>
+                <a href="{{ child.url }}" class="block py-1 text-sm text-neutral-100/80 hover:text-primary-300 transition-colors{% if page.url == child.url %} font-semibold text-neutral-100{% endif %}"{% if page.url == child.url %} aria-current="page"{% endif %}>
+                  {{ child.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="flex-1 max-w-prose mx-auto px-4 py-12 w-full print:max-w-full print:mx-0 print:p-4">
+    <article class="prose max-w-none print:max-w-full">
+      {% block content %}{{ content | safe }}{% endblock %}
+    </article>
+  </main>
+
+  <footer class="border-t border-primary-500 mt-auto print:hidden">
+    <div class="max-w-prose mx-auto px-4 py-6 text-sm text-neutral-100">
+      <p>
+        © {{ site.name }}.
+        {% if site.repository %}
+        <a href="{{ site.repository }}" class="text-primary-300 hover:text-primary-400 transition-colors">Source on GitHub</a>
+        {% endif %}
+      </p>
+    </div>
+  </footer>
+
+  <script type="module" src="/assets/main.js"></script>
+</body>
+</html>

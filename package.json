@@ -1,0 +1,53 @@
+{
+  "name": "eleventy-vite-tailwind-template",
+  "version": "1.0.0",
+  "description": "A modern static site template using Eleventy, Vite, and Tailwind CSS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/eleventy-vite-tailwind-template"
+  },
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "pretest": "npm run lint && npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint . && stylelint 'src/**/*.css'",
+    "lint:fix": "eslint . --fix && stylelint 'src/**/*.css' --fix",
+    "check:links": "npm run build && linkinator _site/index.html --recurse --skip 'https://.*'",
+    "lighthouse": "unlighthouse --site http://localhost:8080",
+    "lighthouse:ci": "npm run build && unlighthouse-ci --site ./_site"
+  },
+  "keywords": [
+    "eleventy",
+    "vite",
+    "tailwindcss",
+    "template",
+    "static-site"
+  ],
+  "type": "module",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-navigation": "^1.0.4",
+    "@11ty/eleventy-plugin-rss": "^2.0.4",
+    "@11ty/eleventy-plugin-vite": "^7.0.0",
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-footnote": "^4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@playwright/test": "^1.56.1",
+    "@tailwindcss/vite": "^4.1.16",
+    "eslint": "^9.39.1",
+    "linkinator": "^7.5.0",
+    "markdown-it": "^14.1.0",
+    "stylelint": "^16.26.0",
+    "stylelint-config-standard": "^39.0.1",
+    "unlighthouse": "^0.17.4",
+    "vite": "^7.1.12",
+    "vite-plugin-checker": "^0.11.0",
+    "vitest": "^4.0.3"
+  }
+}
