@@ -31,6 +31,6 @@ export default [
     },
   },
   {
-    ignores: ["_site/**", "node_modules/**"],
+    ignores: ["_site/**", "node_modules/**", ".unlighthouse/**"],
   },
 ];
