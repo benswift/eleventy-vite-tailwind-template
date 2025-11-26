@@ -24,6 +24,11 @@ is no separate `vite.config.js`.
 - Tailwind CSS v4 uses `@import "tailwindcss"` in CSS, not `@tailwind`
   directives
 - The `@tailwindcss/vite` plugin handles Tailwind (no PostCSS needed)
+- Non-HTML files (feed.xml, robots.txt) are lost during Vite build because
+  `eleventy-plugin-vite` only processes HTML through rollup. A custom Vite
+  plugin in `eleventy.config.js` copies these files from `.11ty-vite/` to
+  `_site/` after the build. Add new non-HTML output files to the `filesToCopy`
+  array in that plugin.
 
 ## Project structure
 
@@ -34,7 +39,10 @@ src/
   assets/
     main.css       # Entry point with @import "tailwindcss"
     main.js        # JavaScript entry point
-  posts/           # Blog posts (create this directory for posts)
+  posts/           # Blog posts (markdown with frontmatter)
+  posts.md         # Posts listing page
+  feed.njk         # Atom feed template (outputs feed.xml)
+  robots.txt       # Robots file (passthrough copy)
   index.md         # Homepage
   about.md         # About page
   contact.md       # Contact page

@@ -20,6 +20,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/images");
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
 
   // Plugins
   eleventyConfig.addPlugin(pluginRss);
@@ -94,6 +95,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(EleventyVitePlugin, {
     viteOptions: {
       base: "/",
+      publicDir: false,
       plugins: [
         tailwindcss(),
         checker({
@@ -106,6 +108,27 @@ export default function (eleventyConfig) {
             lintCommand: 'stylelint "src/**/*.css"',
           },
         }),
+        {
+          name: "copy-feed",
+          closeBundle: {
+            sequential: true,
+            async handler() {
+              const fs = await import("node:fs/promises");
+              const path = await import("node:path");
+              const baseDir = import.meta.dirname;
+              const filesToCopy = ["feed.xml", "robots.txt"];
+              for (const file of filesToCopy) {
+                const src = path.join(baseDir, ".11ty-vite", file);
+                const dest = path.join(baseDir, "_site", file);
+                try {
+                  await fs.copyFile(src, dest);
+                } catch {
+                  // file may not exist yet
+                }
+              }
+            },
+          },
+        },
       ],
       build: {
         rollupOptions: {
