@@ -39,10 +39,10 @@
 
         {# Desktop navigation #}
         {% set navPages = collections.all | eleventyNavigation %}
-        <ul class="hidden sm:flex gap-6 sm:gap-8">
+        <ul class="hidden sm:flex gap-6 sm:gap-8 items-center">
           {% for entry in navPages %}
           <li class="relative{% if entry.children.length %} group{% endif %}">
-            <a href="{{ entry.url }}" class="text-neutral-100 hover:text-primary-300 transition-colors{% if page.url | startswith(entry.url) %} font-semibold{% endif %}"{% if page.url | startswith(entry.url) %} aria-current="page"{% endif %}{% if entry.children.length %} aria-haspopup="true"{% endif %}>
+            <a href="{{ entry.url }}" class="inline-block py-2 text-neutral-100 hover:text-primary-300 transition-colors{% if page.url | startswith(entry.url) %} font-semibold{% endif %}"{% if page.url | startswith(entry.url) %} aria-current="page"{% endif %}{% if entry.children.length %} aria-haspopup="true"{% endif %}>
               {{ entry.title }}{% if entry.children.length %}<span class="ml-1 text-xs" aria-hidden="true">▾</span>{% endif %}
             </a>
             {% if entry.children.length %}
@@ -81,7 +81,7 @@
         <ul class="flex flex-col gap-1">
           {% for entry in navPages %}
           <li>
-            <a href="{{ entry.url }}" class="block py-2 text-neutral-100 hover:text-primary-300 transition-colors{% if page.url | startswith(entry.url) %} font-semibold{% endif %}"{% if page.url | startswith(entry.url) %} aria-current="page"{% endif %}>
+            <a href="{{ entry.url }}" class="block py-3 text-neutral-100 hover:text-primary-300 transition-colors{% if page.url | startswith(entry.url) %} font-semibold{% endif %}"{% if page.url | startswith(entry.url) %} aria-current="page"{% endif %}>
               {{ entry.title }}
             </a>
             {% if entry.children.length %}
