@@ -116,7 +116,10 @@ describe("build output", () => {
     const html = readFileSync(indexPath, "utf-8");
 
     // CSS should be linked as a stylesheet, not imported via JS
-    const linkMatch = html.match(/<link rel="stylesheet"[^>]*href="([^"]+)"/);
+    // Match the local CSS bundle (not external fonts)
+    const linkMatch = html.match(
+      /<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"/,
+    );
     expect(linkMatch).toBeTruthy();
 
     // The CSS file should exist and be a hashed bundle

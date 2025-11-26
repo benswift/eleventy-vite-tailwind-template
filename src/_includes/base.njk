@@ -17,6 +17,12 @@
   <meta name="twitter:title" content="{% block twitterTitle %}{{ title or site.name }}{% endblock %}">
   <meta name="twitter:description" content="{{ description or site.description }}">
 
+  <!-- Google Fonts (async) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300..900;1,300..900&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300..900;1,300..900&display=swap"></noscript>
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta name="theme-color" content="#3b82f6">
