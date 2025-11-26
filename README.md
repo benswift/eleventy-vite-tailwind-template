@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-Visit http://localhost:8080 to see your site.
+Visit `http://localhost:8080` to see your site.
 
 ## Available scripts
 
@@ -106,6 +106,10 @@ collected and sorted by date.
 4. Update site metadata in `eleventy.config.js`
 5. Replace placeholder content in `src/`
 6. Customise the colour scheme in `src/assets/main.css`
+
+## Author
+
+Ben Swift
 
 ## Licence
 
