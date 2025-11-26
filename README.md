@@ -1,5 +1,11 @@
 # Eleventy + Vite + Tailwind Template
 
+> **This is a GitHub template repository.** Click "Use this template" to create
+> your own repository based on this starter---you'll get a clean copy without
+> the commit history. See
+> [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+> for more details.
+
 A modern static site template using Eleventy v3, Vite, and Tailwind CSS v4.
 
 ## Features
